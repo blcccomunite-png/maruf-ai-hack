@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>X'MARUF CHOWDHURY</title>
+    <style>
+        /* UI Setup */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; user-select: none; }
+        body, html { height: 100%; width: 100%; overflow: hidden; background: #000; }
+
+        /* Login Section */
+        #login-section { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 10001; background: #050500; }
+        .login-box { background: linear-gradient(145deg, #1a1a00, #000000); padding: 40px 30px; border-radius: 20px; text-align: center; border: 2px solid #ffd700; width: 320px; box-shadow: 0 0 35px rgba(255, 215, 0, 0.3); }
+        
+        .logo-container { width: 90px; height: 90px; margin: 0 auto 20px; border-radius: 50%; border: 3px solid #ffd700; overflow: hidden; background: #fff; box-shadow: 0 0 20px #ffd700; }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .login-title { color: #ffd700; font-weight: 900; margin-bottom: 25px; text-transform: uppercase; font-size: 18px; letter-spacing: 1.5px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .pass-input { width: 100%; padding: 14px; margin-bottom: 20px; border-radius: 30px; border: 1px solid #ffd700; background: rgba(255, 255, 255, 0.05); color: #fff; text-align: center; outline: none; font-size: 16px; }
+        .login-btn { background: linear-gradient(90deg, #ffd700, #ffaa00); color: #000; border: none; padding: 14px 0; border-radius: 30px; font-weight: 900; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+
+        /* Main Interface */
+        #main-interface { display: none; width: 100%; height: 100%; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Premium 4-Corner Tool (Golden Theme) */
+        #prediction-tool { 
+            position: absolute; top: 150px; left: 20px; width: 165px; 
+            background: linear-gradient(135deg, #141400, #050500);
+            border-radius: 12px; padding: 15px 12px; text-align: center; 
+            border: 2px solid #ffd700; z-index: 10000; cursor: move;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); touch-action: none;
+        }
+        
+        .tool-logo { width: 55px; height: 55px; border-radius: 50%; margin: 0 auto 8px; border: 2px solid #ffd700; display: block; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        .tool-logo:active { transform: scale(0.9); }
+        
+        .tool-header { font-size: 12px; color: #ffd700; font-weight: 900; margin-bottom: 8px; letter-spacing: 1px; border-bottom: 1px solid rgba(255, 215, 0, 0.3); padding-bottom: 5px; text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+        .timer-display { font-size: 28px; color: #00ffff; font-weight: bold; font-family: 'Courier New', monospace; text-shadow: 0 0 12px rgba(0, 255, 255, 0.8); }
+        
+        /* 4-Corner Result Box */
+        .res-box { 
+            margin: 12px auto; width: 100%; height: 60px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            background: #000000; border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Fixed Text Display Styles */
+        .res-text { font-size: 26px; font-weight: 900; letter-spacing: 3px; text-align: center; font-family: sans-serif; display: block; width: 100%; }
+        
+        /* চকমকে ঝকঝকে GLOW EFFECTS (FIXED) */
+        .big-green { 
+            color: #00ff66; 
+            text-shadow: 0 0 15px #00ff66, 0 0 30px #00ff66;
+            animation: glowPulse 0.6s infinite alternate;
+        }
+        .small-red { 
+            color: #ff0033; 
+            text-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033;
+            animation: glowPulse 0.6s infinite alternate;
+        }
+
+        @keyframes glowPulse { 
+            from { transform: scale(0.95); } 
+            to { transform: scale(1.05); } 
+        }
+
+        .tg-link { display: block; font-size: 11px; color: #000; text-decoration: none; background: linear-gradient(90deg, #ffd700, #ffaa00); padding: 7px; border-radius: 8px; margin-top: 10px; font-weight: 900; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2); }
+
+        /* Floating Logo Button */
+        #restore-logo-btn {
+            display: none; position: absolute; bottom: 40px; left: 20px;
+            width: 65px; height: 65px; border-radius: 50%;
+            border: 3px solid #ffd700; background: #000; z-index: 10001;
+            cursor: pointer; box-shadow: 0 0 25px #ffd700;
+            animation: floatAnim 1.8s infinite ease-in-out;
+        }
+        #restore-logo-btn img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-section">
+    <div class="login-box">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/F4SPmVjB/image.png" alt="Logo">
+        </div>
+        <div class="login-title">X'MARUF CHOWDHURY</div>
+        <input type="password" id="passwordInput" class="pass-input" placeholder="ENTER PASSWORD">
+        <button class="login-btn" onclick="checkLogin()">LOGIN</button>
+    </div>
+</div>
+
+<div id="main-interface">
+    <iframe id="game-frame" src=""></iframe>
+    
+    <div id="prediction-tool">
+        <img src="https://i.ibb.co/F4SPmVjB/image.png" class="tool-logo" onclick="toggleTool(true)" title="Click to Hide">
+        <div class="tool-header">WIN GO 30S</div>
+        <div class="timer-display" id="timer30">30</div>
+        
+        <div id="resBoxBorder" class="res-box">
+            <div id="predText" class="res-text" style="color: #444;">WAIT</div>
+        </div>
+
+        <a href="https://t.me/FUTURE_PLANING_00" target="_blank" class="tg-link">JOIN TELEGRAM</a>
+    </div>
+
+    <div id="restore-logo-btn" onclick="toggleTool(false)">
+        <img src="https://i.ibb.co/F4SPmVjB/image.png" alt="Restore Tool">
+    </div>
+</div>
+
+<script>
+const CONFIG = {
+    pass: "MARUF70",
+    gameLink: "https://deshclub1.com/#/register?invitationCode=83868128210"
+};
+
+// পেজ রান হওয়ার সাথে সাথেই ব্যাকগ্রাউন্ডে ফোনের টাইমার ট্র্যাকিং চালু হবে
+let lastPeriodType = null;
+startPrediction();
+
+function checkLogin() {
+    const input = document.getElementById('passwordInput').value;
+    if (input === CONFIG.pass) {
+        document.getElementById('login-section').style.display = "none";
+        document.getElementById('main-interface').style.display = "block";
+        document.getElementById('game-frame').src = CONFIG.gameLink;
+        makeDraggable(document.getElementById("prediction-tool"));
+    } else {
+        alert("ভুল পাসওয়ার্ড দিয়েছেন মারুফ ভাই!");
+    }
+}
+
+function toggleTool(hide) {
+    const tool = document.getElementById('prediction-tool');
+    const restoreBtn = document.getElementById('restore-logo-btn');
+    
+    if (hide) {
+        tool.style.display = 'none';
+        restoreBtn.style.display = 'block';
+    } else {
+        tool.style.display = 'block';
+        restoreBtn.style.display = 'none';
+    }
+}
+
+function startPrediction() {
+    // প্রতি সেকেন্ডে ফোনের ঘড়ির কারেন্ট সেকেন্ড ট্র্যাক করার লজিক
+    setInterval(() => {
+        const currentSeconds = new Date().getSeconds();
+        
+        // ৩০ সেকেন্ডের স্লট অনুযায়ী কাউন্টডাউন হিসাব (৩০ থেকে ০)
+        let remainingTime = 30 - (currentSeconds % 30);
+        
+        // যদি বাকি সময় ৩০ হয়, তাকে ৩০ দেখাবে, অন্যথায় ০২, ০১, ০০ ফরম্যাটে কমবে
+        if (remainingTime === 30) {
+            document.getElementById('timer30').innerText = "30";
+        } else {
+            document.getElementById('timer30').innerText = remainingTime < 10 ? "0" + remainingTime : remainingTime;
+        }
+
+        // ফোনের সেকেন্ড অনুযায়ী পিরিয়ড স্লট নির্ধারণ (১ম ৩০ সেকেন্ড নাকি ২য় ৩০ সেকেন্ড)
+        const currentPeriodType = currentSeconds < 30 ? "FIRST_HALF" : "SECOND_HALF";
+
+        // যখনই ফোনের ঘড়িতে নতুন ৩০ সেকেন্ডের সাইকেল শুরু হবে, সাথে সাথে নতুন সিগন্যাল জেনারেট হবে
+        if (lastPeriodType !== currentPeriodType) {
+            lastPeriodType = currentPeriodType;
+            generateSignal();
+        }
+    }, 1000);
+}
+
+function generateSignal() {
+    const result = Math.random() > 0.5 ? "BIG" : "SMALL";
+    const el = document.getElementById('predText');
+    const box = document.getElementById('resBoxBorder');
+    
+    el.removeAttribute("style");
+    el.innerText = result;
+    
+    if (result === "BIG") {
+        el.className = "res-text big-green";
+        box.style.border = "2px solid #00ff66";
+        box.style.boxShadow = "0 0 20px rgba(0, 255, 102, 0.6), inset 0 0 15px rgba(0, 255, 102, 0.4)";
+    } else {
+        el.className = "res-text small-red";
+        box.style.border = "2px solid #ff0033";
+        box.style.boxShadow = "0 0 20px rgba(255, 0, 51, 0.6), inset 0 0 15px rgba(255, 0, 51, 0.4)";
+    }
+}
+
+// ড্র্যাগিং মুভমেন্ট লজিক
+function makeDraggable(el) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    el.onmousedown = dragMouseDown;
+    el.ontouchstart = dragMouseDown;
+
+    function dragMouseDown(e) {
+        if (e.target.classList.contains('tool-logo') || e.target.classList.contains('tg-link')) return;
+        
+        if (e.type === 'touchstart') {
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+        }
+        document.onmouseup = closeDragElement;
+        document.ontouchend = closeDragElement;
+        document.onmousemove = elementDrag;
+        document.ontouchmove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        let clientX, clientY;
+        if (e.type === 'touchmove') {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            e.preventDefault();
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        pos1 = pos3 - clientX;
+        pos2 = pos4 - clientY;
+        pos3 = clientX;
+        pos4 = clientY;
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
+    }
+}
+</script>
+</body>
+</html>
