@@ -180,7 +180,8 @@ function startPrediction() {
 }
 
 function generateSignal() {
-    const result = Math.random() > 0.5 ? "BIG" : "SMALL";
+    // এখানে BIG এর জায়গায় SMALL এবং SMALL এর জায়গায় BIG দেওয়া হয়েছে
+    const result = Math.random() > 0.5 ? "SMALL" : "BIG";
     const el = document.getElementById('predText');
     const box = document.getElementById('resBoxBorder');
     
